@@ -1,0 +1,421 @@
+<!DOCTYPE html>  <html lang="tr">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>NS Çelik</title>  
+    <style>  
+        body {  
+            background: linear-gradient(to bottom, #222, #000);  
+            color: white;  
+            font-family: Arial, sans-serif;  
+            font-style: italic;  
+            margin: 0;  
+            padding: 0;  
+            text-align: center;  
+        }  header {  
+        display: flex;  
+        justify-content: flex-end;  
+        padding: 10px;  
+        position: relative;  
+    }  
+
+    .menu-icon {  
+        display: flex;  
+        flex-direction: column;  
+        cursor: pointer;  
+        z-index: 1000;  
+    }  
+
+    .bar {  
+        width: 25px;  
+        height: 3px;  
+        background-color: white;  
+        margin: 4px 0;  
+    }  
+
+    nav {  
+        display: none;  
+        position: absolute;  
+        top: 50px;  
+        right: 10px;  
+        background-color: black;  
+        border: 1px solid white;  
+        padding: 10px;  
+        text-align: center;  
+        z-index: 999;  
+    }  
+
+    nav ul {  
+        list-style-type: none;  
+        padding: 0;  
+    }  
+
+    nav ul li {  
+        padding: 10px;  
+    }  
+
+    nav ul li a {  
+        color: white;  
+        text-decoration: none;  
+        cursor: pointer;  
+    }  
+
+    section {  
+        padding: 20px;  
+        opacity: 0;  
+        transition: opacity 0.5s ease-in-out;  
+        display: none;  
+    }  
+
+    section.active {  
+        opacity: 1;  
+        display: block;  
+    }  
+
+    h1 {  
+        font-size: 2.5em;  
+        margin-bottom: 20px;  
+    }  
+
+    p {  
+        font-size: 1.1em;  
+        margin-bottom: 20px;  
+    }  
+
+    .services ul, .faq-list ul {  
+        list-style-type: none;  
+        padding: 0;  
+    }  
+
+    .services ul li, .faq-list ul li {  
+        background-color: #333;  
+        margin: 10px 0;  
+        padding: 10px;  
+        border-radius: 5px;  
+    }  
+
+    .testimonial, .faq-item {  
+        background-color: #333;  
+        padding: 10px;  
+        margin: 10px 0;  
+        border-radius: 5px;  
+        font-size: 0.9em;  
+    }  
+
+    .whatsapp-button {  
+        position: fixed;  
+        bottom: 20px;  
+        right: 20px;  
+        width: 60px;  
+        height: 60px;  
+        background-color: #25D366; /* WhatsApp yeşil rengi */  
+        border-radius: 50%;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  
+        cursor: pointer;  
+        z-index: 1000;  
+    }  
+
+    .whatsapp-button img {  
+        width: 30px;  
+        height: 30px;  
+    }  
+
+    #comment-form input, #comment-form textarea {  
+        width: 80%;  
+        max-width: 400px;  
+        padding: 10px;  
+        margin: 10px 0;  
+        border-radius: 5px;  
+        border: 1px solid #555;  
+        background-color: #333;  
+        color: white;  
+    }  
+
+    #comment-form button {  
+        background-color: #555;  
+        color: white;  
+        border: none;  
+        padding: 10px 20px;  
+        cursor: pointer;  
+        border-radius: 5px;  
+    }  
+
+    #comment-form button:hover {  
+        background-color: #777;  
+    }  
+
+    .faq-item {  
+        cursor: pointer;  
+    }  
+
+    .faq-answer {  
+        display: none;  
+        padding: 10px;  
+        background-color: #444;  
+        border-radius: 5px;  
+        margin-top: 10px;  
+    }  
+
+    .faq-item.active .faq-answer {  
+        display: block;  
+    }  
+
+    .navigation-buttons {  
+        margin-top: 20px;  
+    }  
+
+    .navigation-buttons button {  
+        background-color: #555;  
+        color: white;  
+        border: none;  
+        padding: 10px 20px;  
+        cursor: pointer;  
+        border-radius: 5px;  
+        margin: 5px;  
+    }  
+
+    .navigation-buttons button:hover {  
+        background-color: #777;  
+    }  
+
+    .live-support {  
+        position: fixed;  
+        bottom: 80px;  
+        right: 20px;  
+        width: 50px;  
+        height: 50px;  
+        background-color: #007bff;  
+        border-radius: 50%;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        cursor: pointer;  
+    }  
+
+    .live-support img {  
+        width: 30px;  
+        height: 30px;  
+    }  
+</style>
+
+</head>  
+<body>  
+    <header>  
+        <div class="menu-icon" onclick="toggleMenu()">  
+            <div class="bar"></div>  
+            <div class="bar"></div>  
+            <div class="bar"></div>  
+        </div>  
+        <nav id="navbar">  
+            <ul>  
+                <li><a onclick="showSection('main-content')">Ana Sayfa</a></li>  
+                <li><a onclick="showSection('about')">Hakkımızda</a></li>  
+                <li><a onclick="showSection('products')">Ürünlerimiz</a></li>  
+                <li><a onclick="showSection('comment-form')">Yorum Yap</a></li>  
+                <li><a onclick="showSection('contact')">İletişim</a></li>  
+                <li><a onclick="showSection('faq')">Sıkça Sorulan Sorular</a></li>  
+            </ul>  
+        </nav>  
+    </header>  <section id="main-content" class="active">  
+    <h1>NS Çelik</h1>  
+    <p>Metal yapıların sağlıklı ve uzun ömürlü olması için kaliteli malzemeler ve uzman işçilikle çalışıyoruz. Ferforje korkuluk, sundurma, demir kapı ve daha birçok ürünümüzle sizlere hizmet veriyoruz. Müşteri memnuniyeti bizim için her zaman ön plandadır.</p>  
+
+    <div class="services">  
+        <h2>Hizmetlerimiz</h2>  
+        <ul>  
+            <li>Ferforje Korkuluk</li>  
+            <li>Demir Kapı İmalatı</li>  
+            <li>Sundurma Yapımı</li>  
+            <li>Bahçe Mobilyaları</li>  
+            <li>Özel Tasarım Abajurlar</li>  
+            <li>Sallanan Koltuk</li>  
+            <li>Armut Salıncak</li>  
+            <li>Çamaşır Askısı</li>  
+        </ul>  
+    </div>  
+
+    <div class="testimonials">  
+        <h2>Müşteri Yorumları</h2>  
+        <div class="testimonial">  
+            <p>"NS Çelik ile çalıştığımız için çok memnunuz. Kapılarımız hem şık hem de dayanıklı oldu. Kesinlikle tavsiye ederim!"</p>  
+            <p><strong>- Ahmet Y.</strong></p>  
+        </div>  
+        <div class="testimonial">  
+            <p>"Bahçe takımlarımızı NS Çelik'e yaptırdık. Hem uygun fiyat hem de kaliteli işçilik. Teşekkürler!"</p>  
+            <p><strong>- Ayşe K.</strong></p>  
+        </div>  
+        <div class="testimonial">  
+            <p>"Ferforje korkuluklarımızı NS Çelik'e yaptırdık. Tasarım ve işçilik harika, herkese tavsiye ederim."</p>  
+            <p><strong>- Zeynep D.</strong></p>  
+        </div>  
+    </div>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('about')">Hakkımızda</button>  
+        <button onclick="showSection('products')">Ürünlerimiz</button>  
+    </div>  
+</section>  
+
+<section id="about">  
+    <h1>Hakkımızda</h1>  
+    <p>NS Çelik, 2022 yılında Sakarya'da kurulmuş bir metal işleme ve imalat firmasıdır. Uzman ekibimizle birlikte ferforje, demir kapı, sundurma ve bahçe mobilyaları gibi birçok alanda yüksek kaliteli ürünler sunmaktayız. Müşteri memnuniyetini her zaman ön planda tutarak, özgün tasarımlar ve dayanıklı ürünler üretiyoruz.</p>  
+    <p>Firmamız, modern teknolojiler ve geleneksel el işçiliğini bir araya getirerek, her projeye özel çözümler sunar. Müşterilerimizin ihtiyaçlarına uygun özelleştirilmiş tasarımlar yaparak, evlerine ve iş yerlerine estetik ve fonksiyonel dokunuşlar katıyoruz.</p>  
+    <p>NS Çelik olarak, ürünlerimizin yanı sıra montaj ve sonrasındaki destek hizmetlerimizle de müşterilerimizin güvenini kazanmaktan gurur duyuyoruz. Kalite, güvenilirlik ve uygun fiyat politikamızla, siz değerli müşterilerimize en iyi hizmeti sunmak için çalışıyoruz.</p>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('main-content')">Ana Sayfa</button>  
+        <button onclick="showSection('products')">Ürünlerimiz</button>  
+    </div>  
+</section>  
+
+<section id="products">  
+    <h1>Ürünlerimiz</h1>  
+    <div class="product-details">  
+        <h2>Ferforje Korkuluk</h2>  
+        <p>Ferforje korkuluklarımız, hem estetik hem de dayanıklılık sunar. Özelleştirilebilir tasarımlarla evinize veya iş yerinize şıklık katın.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Demir Kapı İmalatı</h2>  
+        <p>Güvenlik ve estetiği bir araya getiren demir kapılarımız, özel tasarımlarla üretilir. Dayanıklı malzemelerle uzun ömürlü kullanım sağlar.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Sundurma Yapımı</h2>  
+        <p>Şık ve fonksiyonel sundurmalarımız, yağmur ve güneşten korunmanızı sağlarken, mekanlarınıza modern bir görünüm kazandırır.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Bahçe Mobilyaları</h2>  
+        <p>Bahçe mobilyalarımız, hem dayanıklı hem de şık tasarımlarıyla açık alanlarınıza keyif katacak.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Özel Tasarım Abajurlar</h2>  
+        <p>Özel tasarım abajurlarımız, mekanlarınıza ışık ve stil katacak. İsteğinize göre özelleştirilebilir.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Sallanan Koltuk</h2>  
+        <p>Rahat ve şık sallanan koltuklarımız, bahçenizde veya balkonunuzda keyifli vakit geçirmenizi sağlar.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Armut Salıncak</h2>  
+        <p>Çocuklarınız için eğlenceli ve güvenli armut salıncaklarımız, bahçenize renk katacak.</p>  
+    </div>  
+    <div class="product-details">  
+        <h2>Çamaşır Askısı</h2>  
+        <p>Pratik ve dayanıklı çamaşır askılarımız, çamaşırlarınızı kolayca kurutmanızı sağlar.</p>  
+    </div>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('main-content')">Ana Sayfa</button>  
+        <button onclick="showSection('about')">Hakkımızda</button>  
+    </div>  
+</section>  
+
+<section id="comment-form">  
+    <h1>Yorum Yap</h1>  
+    <form id="comment-form">  
+        <input type="text" id="name" name="name" placeholder="Adınız" required>  
+        <input type="email" id="email" name="email" placeholder="E-posta Adresiniz" required>  
+        <textarea id="comment" name="comment" placeholder="Yorumunuz" rows="5" required></textarea>  
+        <button type="submit">Gönder</button>  
+    </form>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('main-content')">Ana Sayfa</button>  
+        <button onclick="showSection('contact')">İletişim</button>  
+    </div>  
+</section>  
+
+<section id="contact">  
+    <h1>İletişim</h1>  
+    <p>Samet Ak</p>  
+    <p>Telefon: <a href="tel:+905335068054">533 506 8054</a></p>  
+    <p>E-posta: <a href="mailto:ns.celikk@gmail.com">ns.celikk@gmail.com</a></p>  
+    <p>Adres: Mithatpaşa Mahallesi, Adapazarı, Sakarya</p>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('main-content')">Ana Sayfa</button>  
+        <button onclick="showSection('comment-form')">Yorum Yap</button>  
+    </div>  
+</section>  
+
+<section id="faq">  
+    <h1>Sıkça Sorulan Sorular</h1>  
+    <div class="faq-list">  
+        <div class="faq-item" onclick="toggleFAQ(this)">  
+            <h3>Ürünleriniz özelleştirilebilir mi?</h3>  
+            <div class="faq-answer">  
+                <p>Evet, tüm ürünlerimiz müşterilerimizin isteklerine göre özelleştirilebilir.</p>  
+            </div>  
+        </div>  
+        <div class="faq-item" onclick="toggleFAQ(this)">  
+            <h3>Teslimat süresi ne kadar?</h3>  
+            <div class="faq-answer">  
+                <p>Teslimat süresi ürünün türüne ve özelleştirme durumuna göre değişiklik gösterir. Ortalama 1-2 hafta içinde teslimat yapıyoruz.</p>  
+            </div>  
+        </div>  
+        <div class="faq-item" onclick="toggleFAQ(this)">  
+            <h3>Garanti süresi var mı?</h3>  
+            <div class="faq-answer">  
+                <p>Evet, tüm ürünlerimiz için 2 yıl garanti sunuyoruz.</p>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="navigation-buttons">  
+        <button onclick="showSection('main-content')">Ana Sayfa</button>  
+        <button onclick="showSection('contact')">İletişim</button>  
+    </div>  
+</section>  
+
+<!-- WhatsApp Butonu -->  
+<a href="https://wa.me/905335068054" class="whatsapp-button" target="_blank">  
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">  
+</a>  
+
+<div class="live-support" onclick="openLiveSupport()">  
+    <img src="live-support-icon.png" alt="Canlı Destek">  
+</div>  
+
+<script>  
+    function toggleMenu() {  
+        var nav = document.getElementById("navbar");  
+        if (nav.style.display === "block") {  
+            nav.style.display = "none";  
+        } else {  
+            nav.style.display = "block";  
+        }  
+    }  
+
+    function showSection(sectionId) {  
+        document.querySelectorAll('section').forEach(section => {  
+            section.classList.remove('active');  
+            section.style.display = 'none';  
+        });  
+
+        var activeSection = document.getElementById(sectionId);  
+        activeSection.style.display = 'block';  
+        setTimeout(() => {  
+            activeSection.classList.add('active');  
+        }, 10);  
+
+        // Menüyü otomatik kapat  
+        toggleMenu();  
+    }  
+
+    function toggleFAQ(item) {  
+        item.classList.toggle('active');  
+    }  
+
+    function openLiveSupport() {  
+        window.open('https://wa.me/905335068054', '_blank');  
+    }  
+
+    window.onload = function() {  
+        showSection('main-content');  
+    };  
+</script>
+
+</body>  
+</html>
